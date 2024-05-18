@@ -1,4 +1,4 @@
-const cats = [
+const catsData = [
     {
         emotionTags: ["moody"],
         isGif: false,
@@ -185,7 +185,7 @@ function getEmotionsArray(cats) {
     return emotionsArray
 }
 
-getEmotionsArray(cats)
+getEmotionsArray(catsData)
 
 console.log(`\n\nThe emotions array consists of:`)
 for (let emotion of emotionsArray) {
