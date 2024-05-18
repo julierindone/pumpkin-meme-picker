@@ -170,9 +170,9 @@ const catsData = [
 ]
 
 const emotionsArray = []
+let catNumber = 1
 
 function getEmotionsArray(cats) {
-    let catNumber = 1
     for (let cat of cats) {
         console.log(`Cat ${catNumber}:`);
         let singleCatEmotions = []
@@ -181,6 +181,7 @@ function getEmotionsArray(cats) {
             emotionsArray.push(emotion)
         }
         console.log(`  emotions: ${singleCatEmotions}`);
+        catNumber++
     }
     return emotionsArray
 }
