@@ -173,22 +173,28 @@ const emotionsArray = []
 let catNumber = 1
 
 function getEmotionsArray(cats) {
+  const emotionsArray = []
     for (let cat of cats) {
-        console.log(`Cat ${catNumber}:`);
-        let singleCatEmotions = []
         for (let emotion of cat.emotionTags) {
-            singleCatEmotions.push(emotion)
             emotionsArray.push(emotion)
         }
-        console.log(`  emotions: ${singleCatEmotions}`);
-        catNumber++
     }
     return emotionsArray
 }
 
 getEmotionsArray(catsData)
 
-console.log(`\n\nThe emotions array consists of:`)
-for (let emotion of emotionsArray) {
-    console.log(`${emotion}`)
+
+function renderEmotionsRadios(cats) {
+  const emotions = getEmotionsArray(cats)
+  let emotionRadioHTML = ""
+  for (let emotion of emotions) {
+    console.log(emotion)
+    emotionRadioHTML = document.createElement("p")
+    emotionRadioHTML.innerHTML = emotion
+    emotionRadioDiv.appendChild(emotionRadioHTML)
+  }
 }
+
+renderEmotionsRadios(catsData)
+
