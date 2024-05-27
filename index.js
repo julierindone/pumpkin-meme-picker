@@ -2,6 +2,10 @@ import { catsData } from "./data.js"
 
 const emotionRadios = document.getElementById("emotion-radios")
 
+getEmotionsArray(catsData)
+
+renderEmotionsRadios(catsData)
+
 function getEmotionsArray(cats) {
   const emotionsArray = []
   for (let cat of cats) {
@@ -24,6 +28,7 @@ function renderEmotionsRadios(cats) {
     } // no need for else since nothing happens with it!
   }
 }
+
 function createEmotionRadio(cats,emotion) {
   let emotionRadioDiv = document.getElementById("emotion-radio-div")
   let radioInput = ""
