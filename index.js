@@ -6,6 +6,12 @@ getEmotionsArray(catsData)
 
 renderEmotionsRadios(catsData)
 
+emotionRadios.addEventListener("click", function (e) {
+  // e.target.id(emotion)
+  console.log(`clicked on ${e.target.id}`);
+  
+})
+
 function getEmotionsArray(cats) {
   const emotionsArray = []
   for (let cat of cats) {
@@ -16,15 +22,13 @@ function getEmotionsArray(cats) {
   return emotionsArray
 }
 
-getEmotionsArray(catsData)
-
 function renderEmotionsRadios(cats) {
   const emotions = getEmotionsArray(cats)
   let emotionsArray = []
-  for (let emotion of emotions) {
+  for (let emotion of emotions) {      
     if (!(emotionsArray.includes(emotion))) {
       emotionsArray.push(emotion)
-    createEmotionRadio(cats, emotion)
+      createEmotionRadio(cats, emotion)
     } // no need for else since nothing happens with it!
   }
 }
@@ -56,4 +60,3 @@ function createEmotionRadio(cats,emotion) {
   emotionRadioDiv.appendChild(radioInput)
 }
 
-renderEmotionsRadios(catsData)
