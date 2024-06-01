@@ -76,9 +76,10 @@ label {
 }
 
 .highlight {
-	background-color: #fff0ee;
+	background-color: #fff4f9;
 	color: #bd301d;
 	font-weight: bold;
+	accent-color: #bd301d;
 }
 
 .radio:last-child {

@@ -7,6 +7,11 @@ getEmotionsArray(catsData)
 
 renderEmotionsRadios(catsData)
 
+// Listens for whatever radio is chosen. 
+// Using 'change' instead of 'click' bc the id will apply to the whole div, not just the radio.
+// We don't use the () in a named function inside an event listener bc if we did, it would try to invoke it immediately.
+emotionRadios.addEventListener('change', highlightCheckedOption)
+
 // Gets full list from data.js and filters out dupes
 function getEmotionsArray(cats) {
 
@@ -23,7 +28,6 @@ function getEmotionsArray(cats) {
   return emotionsArray
 }
 
-// Creates HTML and prints to screen
 function renderEmotionsRadios(cats) {
 
   let radioItems = ``
@@ -40,4 +44,12 @@ function renderEmotionsRadios(cats) {
       </div>`
   }
   emotionRadios.innerHTML = radioItems
+}
+
+function highlightCheckedOption(e) {
+  const radios = document.getElementsByClassName('highlight')
+  for (let radio of radios) {
+    radio.classList.remove('highlight')
+  };
+  document.getElementById(e.target.id).parentElement.classList.add('highlight')
 }
