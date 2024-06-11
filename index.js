@@ -15,7 +15,9 @@ renderEmotionsRadios(catsData)
 // We don't use the () in a named function inside an event listener bc if we did, it would try to invoke it immediately.
 
 emotionRadios.addEventListener('change', highlightCheckedOption)
-getImageBtn.addEventListener('click', getMatchingCatsArray)
+getImageBtn.addEventListener('click', function() {
+  getMatchingCatsArray(catsData)
+})
 gifsOnlyOption.addEventListener('change', function () {
   // do I need anything inside this event listener???
   console.log(`gifsOnlyOption checked? ${gifsOnlyOption.checked}`);
@@ -23,7 +25,6 @@ gifsOnlyOption.addEventListener('change', function () {
 
 // Gets full list from data.js and filters out dupes
 function getEmotionsArray(cats) {
-
   const emotionsArray = []
   for (let cat of cats) {
     for (let emotion of cat.emotionTags) {
@@ -36,7 +37,6 @@ function getEmotionsArray(cats) {
 }
 
 function renderEmotionsRadios(cats) {
-
   let radioItems = ``
   const emotions = getEmotionsArray(cats)
   for (let emotion of emotions) {
@@ -61,22 +61,25 @@ function highlightCheckedOption(e) {
   document.getElementById(e.target.id).parentElement.classList.add('highlight')
 }
 
-function getMatchingCatsArray() {
+function getMatchingCatsArray(cats) {
   const radios = document.getElementsByClassName('highlight')
   const isGifsOnlySelected = gifsOnlyOption.checked
 
   if (document.querySelector('input[type="radio"]:checked')) {
     const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
-    console.log(`selected ${selectedEmotion}`);
-  }
 
-  if (isGifsOnlySelected) {
-    // return array of ONLY gifs from that mood
-    console.log(`Only returning gifs.`)
-  }
-  else {
-    console.log(`Returning gifs and stills.`);
-    // return array of ALL images from that mood
+    if (isGifsOnlySelected) {
+      // return array of ONLY gifs from that mood
+      console.log(`Returning gifs with emotion: ${selectedEmotion}.`)
+      const imageArray = cats.filter(function(cat) {
+        return cat.emotionTags.includes(selectedEmotion)
+      })
+      console.log(`imageArray is ${imageArray}`);
+      
+    }
+    else {
+      console.log(`Returning gifs and stills of ${selectedEmotion}.`);
+      // return array of ALL images from that mood
+    }
   }
 }
-
