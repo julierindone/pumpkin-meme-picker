@@ -1,6 +1,5 @@
 import { catsData } from './data.js'
 
-// This is the visible list of moods.
 const emotionRadios = document.getElementById('emotion-radios')
 const getImageBtn = document.getElementById('get-image-btn')
 const gifsOnlyOption = document.getElementById('gifs-only-option')
@@ -12,7 +11,7 @@ const gifsOnlyOption = document.getElementById('gifs-only-option')
 
 emotionRadios.addEventListener('change', highlightCheckedOption)
 
-getImageBtn.addEventListener('click', getMatchingCatsArray)
+getImageBtn.addEventListener('click', renderCat)
 
 function highlightCheckedOption(e) {
   const radios = document.getElementsByClassName('radio')
@@ -22,33 +21,53 @@ function highlightCheckedOption(e) {
   document.getElementById(e.target.id).parentElement.classList.add('highlight')
 }
 
+// returns an array of cat objects that matches the user's criteria. 
 function getMatchingCatsArray() {
+  console.log(`*** matchingCatsArray, called fr getSingleCatObject ***`);
+
   if (document.querySelector('input[type="radio"]:checked')) {
     const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
     const isGif = gifsOnlyOption.checked
 
+    const matchingCatsArray = catsData.filter(function (cat) {
+
     if (isGif) {
-      console.log(` gifs only.`);
-      
-      const matchingCatsArray = catsData.filter(function (cat) {
+        console.log(`gifs only for ${selectedEmotion}`);
         return cat.emotionTags.includes(selectedEmotion) && cat.isGif
-      })
-      console.log(matchingCatsArray)
     }
     else {
-      const matchingCatsArray = catsData.filter(function (cat) {
         return cat.emotionTags.includes(selectedEmotion)
-      })
-    console.log(matchingCatsArray)
-    }
+      }
+    })
+    return matchingCatsArray
   }
+}
+
+// return a single cat object selected from the array provided by getMatchingCatsArray.
+function getSingleCatObject() {
+
+  const catsArray = getMatchingCatsArray()
+
+  if (catsArray.length === 1) {
+    console.log(catsArray[0]);
+  }
+  else {
+    console.log(`length of array is ${catsArray.length}`);
+  }
+}
+
+// uses the cat object provided by getSingleCatObject   // to create HTML string which it will render it to the dom.
+function renderCat() {
+  console.log(`renderCat`);
+
+  getSingleCatObject() // temporary
 }
 
 function getEmotionsArray(cats) {
   const emotionsArray = []
   for (let cat of cats) {
     for (let emotion of cat.emotionTags) {
-      if (!(emotionsArray.includes(emotion))) {
+      if (!emotionsArray.includes(emotion)) {
         emotionsArray.push(emotion)
       }
     }
