@@ -68,6 +68,17 @@ header {
 	padding: 4px 8px;
 }
 
+.radio:first-child {
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+}
+
+.radio:last-child {
+	border-bottom: 0;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
 label {
 	font-size: 14px;
 	padding: 3px;
@@ -76,14 +87,10 @@ label {
 }
 
 .highlight {
-	background-color: #fff4f9;
-	color: #bd301d;
+	background-color: #fff0ee;
+	color: #a42514;
 	font-weight: bold;
-	accent-color: #bd301d;
-}
-
-.radio:last-child {
-	border-bottom: 0;
+	accent-color: #a42514;
 }
 
 input[type="radio"] {
@@ -127,7 +134,7 @@ input[type="radio"] {
 	border-radius: 5px;
 	width: 420px;
 	height: 490px;
-	background-color: #fff0ee;
+	background-color: #cde1e1;
 }
 
 .cat-img {

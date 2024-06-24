@@ -3,11 +3,10 @@ import { catsData } from './data.js'
 const emotionRadios = document.getElementById('emotion-radios')
 const getImageBtn = document.getElementById('get-image-btn')
 const gifsOnlyOption = document.getElementById('gifs-only-option')
+const memeModalInner = document.getElementById('meme-modal-inner')
+const memeModal = document.getElementById('meme-modal')
+const memeModalCloseBtn = document.getElementById('meme-modal-close-btn')
 
-// Notes
-// Listens for whatever radio is chosen. 
-// Using 'change' instead of 'click' bc the id will apply to the whole div, not just the radio.
-// We don't use the () in a named function inside an event listener bc if we did, it would try to invoke it immediately.
 
 emotionRadios.addEventListener('change', highlightCheckedOption)
 
@@ -21,9 +20,8 @@ function highlightCheckedOption(e) {
   document.getElementById(e.target.id).parentElement.classList.add('highlight')
 }
 
-// returns an array of cat objects that matches the user's criteria. 
+// returns an array of cat objects that matches the user's selected emotion and gif/jpg choice. 
 function getMatchingCatsArray() {
-  console.log(`*** matchingCatsArray, called fr getSingleCatObject ***`);
 
   if (document.querySelector('input[type="radio"]:checked')) {
     const selectedEmotion = document.querySelector('input[type="radio"]:checked').value
@@ -31,11 +29,10 @@ function getMatchingCatsArray() {
 
     const matchingCatsArray = catsData.filter(function (cat) {
 
-    if (isGif) {
-        console.log(`gifs only for ${selectedEmotion}`);
+      if (isGif) {
         return cat.emotionTags.includes(selectedEmotion) && cat.isGif
-    }
-    else {
+      }
+      else {
         return cat.emotionTags.includes(selectedEmotion)
       }
     })
@@ -49,18 +46,31 @@ function getSingleCatObject() {
   const catsArray = getMatchingCatsArray()
 
   if (catsArray.length === 1) {
-    console.log(catsArray[0]);
+    return catsArray[0]
   }
   else {
-    console.log(`length of array is ${catsArray.length}`);
+    const randomNumber = Math.floor(Math.random() * catsArray.length)
+
+    return catsArray[randomNumber]
   }
 }
 
-// uses the cat object provided by getSingleCatObject   // to create HTML string which it will render it to the dom.
+// uses cat object fr getSingleCatObject() to create HTML string for image
 function renderCat() {
-  console.log(`renderCat`);
+  const catObject = getSingleCatObject() // temporary (is it?)
 
-  getSingleCatObject() // temporary
+  memeModalInner.innerHTML =
+    `<img 
+        class="cat-img" 
+        src="./images/${catObject.image}"
+        alt="${catObject.alt}"
+        >`
+  memeModal.style.display = "flex"
+
+  // closes modal
+  memeModalCloseBtn.addEventListener('click', function () {
+    memeModal.style.display = "none"
+  })
 }
 
 function getEmotionsArray(cats) {
@@ -86,7 +96,8 @@ function renderEmotionsRadios(cats) {
         type="radio" 
         id="${emotion}" 
         value="${emotion}" 
-        name="emotions">
+        name="emotions"
+        >
       </div>`
   }
   emotionRadios.innerHTML = radioItems
