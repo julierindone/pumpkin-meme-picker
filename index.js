@@ -12,6 +12,8 @@ emotionRadios.addEventListener('change', highlightCheckedOption)
 
 getImageBtn.addEventListener('click', renderCat)
 
+memeModalCloseBtn.addEventListener('click', closeModal)
+
 function highlightCheckedOption(e) {
   const radios = document.getElementsByClassName('radio')
   for (let radio of radios) {
@@ -66,11 +68,10 @@ function renderCat() {
         alt="${catObject.alt}"
         >`
   memeModal.style.display = "flex"
+}
 
-  // closes modal
-  memeModalCloseBtn.addEventListener('click', function () {
-    memeModal.style.display = "none"
-  })
+function closeModal() {
+  memeModal.style.display = "none"
 }
 
 function getEmotionsArray(cats) {
