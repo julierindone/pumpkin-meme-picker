@@ -8,11 +8,13 @@ const memeModal = document.getElementById('meme-modal')
 const memeModalCloseBtn = document.getElementById('meme-modal-close-btn')
 
 
+
+memeModalCloseBtn.addEventListener('click', closeModal)
+
 emotionRadios.addEventListener('change', highlightCheckedOption)
 
 getImageBtn.addEventListener('click', renderCat)
 
-memeModalCloseBtn.addEventListener('click', closeModal)
 
 function highlightCheckedOption(e) {
   const radios = document.getElementsByClassName('radio')
@@ -20,6 +22,23 @@ function highlightCheckedOption(e) {
     radio.classList.remove('highlight')
   }
   document.getElementById(e.target.id).parentElement.classList.add('highlight')
+}
+
+function closeModal() {
+  memeModal.style.display = "none"
+}
+
+// uses cat object fr getSingleCatObject() to create HTML string for image
+function renderCat() {
+  const catObject = getSingleCatObject()
+
+  memeModalInner.innerHTML =
+    `<img 
+        class="cat-img" 
+        src="./images/${catObject.image}"
+        alt="${catObject.alt}"
+        >`
+  memeModal.style.display = "flex"
 }
 
 // returns an array of cat objects that matches the user's selected emotion and gif/jpg choice. 
@@ -57,22 +76,6 @@ function getSingleCatObject() {
   }
 }
 
-// uses cat object fr getSingleCatObject() to create HTML string for image
-function renderCat() {
-  const catObject = getSingleCatObject() // temporary (is it?)
-
-  memeModalInner.innerHTML =
-    `<img 
-        class="cat-img" 
-        src="./images/${catObject.image}"
-        alt="${catObject.alt}"
-        >`
-  memeModal.style.display = "flex"
-}
-
-function closeModal() {
-  memeModal.style.display = "none"
-}
 
 function getEmotionsArray(cats) {
   const emotionsArray = []
@@ -105,7 +108,3 @@ function renderEmotionsRadios(cats) {
 }
 
 renderEmotionsRadios(catsData)
-
-
-
-
